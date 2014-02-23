@@ -1,0 +1,71 @@
+body {
+    background: #ffffff;
+    color: #777777;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+/*font*/
+
+h1 {
+    color: #25a5cd;
+    font-size: 3.2em;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+h2 {
+    color: #3f3f3f;
+    font-size: 2.2em;
+}
+h3 {
+    color: #25a5cd;
+    font-size: 1.1em;
+    font-weight: 300;
+}
+/*table*/
+
+table.table {
+    border: none;
+}
+table.table > thead > tr >th {
+    border-color: #777777;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    border-top: none;
+}
+table.table > tbody > tr > td {
+    border-color: #777777;
+    border-left: 2px solid;
+    border-top: none;
+    vertical-align: middle;
+}
+table.table tbody tr td .title {
+    padding-top: 2%;
+}
+table.table tr td img.gravatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+/*div*/
+
+.container {
+    width: 100%;
+    padding: 1% 1% 1% 0;
+}
+.project {
+    margin-bottom: 20px;
+}
+.icontag {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+.project img.projectimg {
+    width: 150px;
+    height: 150px;
+}
+.leftcollum {
+    border-left: 2px solid #777777;
+}
