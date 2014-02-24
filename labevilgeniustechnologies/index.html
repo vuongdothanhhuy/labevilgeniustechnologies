@@ -627,13 +627,6 @@ $(document).ready(function () {
         $("#no4A").slideToggle();
     });
 
-    // get the email
-    //var email1 = 'khoi@evilgeniustechnologies.com';
-    // -- maybe validate the email?
-
-    // OR, simply modify the source of an image already on the page
-    //$('#testing').attr('src', 'http://www.gravatar.com/avatar/' + MD5(email));
-
     // Add project button
     $("#btnAdd").click(function () {
 
@@ -779,7 +772,6 @@ $(document).ready(function () {
         var start = "<JSON>";
         var end = "</JSON>";
         var finalString = start.concat(xmlText).concat(end);
-        var finalStringcompressed = LZString.compress(finalString);
 
         // uncomment below to get json obj, now it's still string.
         var jsonObj = x2js.xml_str2json(finalString);
@@ -789,10 +781,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "php/write_json.php",
-            data: { "jsonData" : JSON.stringify(jsonObj) },
-//            data: {"jsonData":"testjson"},
-//            contentType: "application/json; charset=utf-8",
-//            dataType: "json",
+            data: { "jsonData": JSON.stringify(jsonObj) },
             success: function (data) {
                 alert(data);
             },
@@ -806,11 +795,9 @@ $(document).ready(function () {
 //            localStorage.setItem('egtech_data', JSON.stringify(jsonObj));
 //        }
 //        else {
-            // alert('Sorry! No Web Storage support..');
+        // alert('Sorry! No Web Storage support..');
 //        }
 
-//        var cct = localStorage.getItem('egtech_data');
-//        console.log(cct);
     });
 });
 
@@ -822,18 +809,17 @@ function loadJSON() {
             .done(function (json) {
                 console.log("JSON Data: " + $.parseJSON(JSON.stringify(json)));
 
-//                var temp = x2js.json2xml_str($.parseJSON(json));
                 var x2js = new X2JS();
                 var temp = x2js.json2xml_str(json);
                 if (temp != null || temp != "") {
                     var data = temp.substring(6, temp.lastIndexOf("</JSON>"));
-                    $('body').append(data);
+                    $('.container').append(data);
                 }
             })
             .fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
                 console.log("Request Failed: " + err);
-                $('body').html("Error loading data!");
+                alert("Error loading data!");
             });
 
     //or we can get JSON from html5 local storage just to test things?
@@ -885,6 +871,7 @@ $('window').ready(function () {
     // cannot test because no server side script
     // now  moved to html5 local storage, can be tested.
     loadJSON();
+
 });
 </script>
 </head>
@@ -939,329 +926,6 @@ $('window').ready(function () {
     </div>
 </div>
 <!--BEGINHERE-->
-<div class="project row-fluid">
-    <div class="icontag span3">
-        <img class="projectimg" src="img/logotest.jpg">
-    </div>
-    <div class="span9">
-        <table class="table row-fluid">
-            <thead>
-            <tr>
-                <th class="span8">
-                    <a href="#">
-                        <h1 id="no1B">Vigenere cipher</h1>
-                    </a>
-                </th>
-                <th class="span4">
-                    <h2>25/2/2014</h2>
-                </th>
-            </tr>
-            </thead>
-            <tbody id="no1A">
-            <tr>
-                <td>
-                    <button id="btn_no1A" class="btn btn-lg btn-primary btnAddSub" data-toggle="modal"
-                            data-target="#myModal">Add New Sub
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img id="testing" alt="somebody" src="" class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Tester
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="project row-fluid">
-    <div class="icontag span3">
-        <img class="projectimg" src="img/logotest.jpg">
-    </div>
-    <div class="span9">
-        <table class="table row-fluid">
-            <thead>
-            <tr>
-                <th class="span8">
-                    <a href="#">
-                        <h1 id="no2B">Vigenere cipher</h1>
-                    </a>
-                </th>
-                <th class="span4">
-                    <h2>25/2/2014</h2>
-                </th>
-            </tr>
-            </thead>
-            <tbody id="no2A">
-            <tr>
-                <td>
-                    <button id="btn_no2A" class="btn btn-lg btn-primary btnAddSub" data-toggle="modal"
-                            data-target="#myModal">Add New Sub
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="project row-fluid">
-    <div class="icontag span3">
-        <img class="projectimg" src="img/logotest.jpg">
-    </div>
-    <div class="span9">
-        <table class="table row-fluid">
-            <thead>
-            <tr>
-                <th class="span8">
-                    <a href="#">
-                        <h1 id="no3B">Vigenere cipher</h1>
-                    </a>
-                </th>
-                <th class="span4">
-                    <h2>25/2/2014</h2>
-                </th>
-            </tr>
-            </thead>
-            <tbody id="no3A">
-            <tr>
-                <td>
-                    <button id="btn_no3A" class="btn btn-lg btn-primary btnAddSub" data-toggle="modal"
-                            data-target="#myModal">Add New Sub
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Dang</h3>
-                    </div>
-                    <div class="title span9">
-                        Slave
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/8e0eb71cc887a4a1e3a84a2b5b569c35?s=160"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="project row-fluid">
-    <div class="icontag span3">
-        <img class="projectimg" src="img/logotest.jpg">
-    </div>
-    <div class="span9">
-        <table class="table row-fluid">
-            <thead>
-            <tr>
-                <th class="span8">
-                    <a href="#">
-                        <h1 id="no4B">Vigenere cipher</h1>
-                    </a>
-                </th>
-                <th class="span4">
-                    <h2>25/2/2014</h2>
-                </th>
-            </tr>
-            </thead>
-            <tbody id="no4A">
-            <tr>
-                <td>
-                    <button id="btn_no4A" class="btn btn-lg btn-primary btnAddSub" data-toggle="modal"
-                            data-target="#myModal">Add New Sub
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/15b2ec1b55c5f90292a0fca56fdbc9be"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Anne</h3>
-                    </div>
-                    <div class="title span9">
-                        Mage
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/6e5fa532b549421fc076cabd6fd9a88c"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Hung</h3>
-                    </div>
-                    <div class="title span9">
-                        Wizard
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="span1">
-                        <img alt="somebody" src="http://www.gravatar.com/avatar/6e5fa532b549421fc076cabd6fd9a88c"
-                             class="gravatar">
-                    </div>
-                    <div class="span2">
-                        <h3>Tester</h3>
-                    </div>
-                    <div class="title span9">
-                        Developer
-                    </div>
-                </td>
-                <td>
-                    17/2/2014
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 </div>
 </body>
