@@ -13,7 +13,6 @@
 <!-- Include js libraries to use -->
 <script src="bootstrap/js/jquery.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<!--<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>-->
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="bootstrap/js/md5.js"></script>
 <script src="xml2json.js"></script>
@@ -846,7 +845,7 @@ function checkLogin() {
             //Guest
             //disable all button!!
             $('button').prop('disabled', true);
-        } else if (MD5(result) == "0fdc77483de040cc88878fc70ac2a8d7") {
+        } else if (MD5(result) == "21232f297a57a5a743894a0e4a801fc3") {
             //Admin
             //set session cookie
             $.cookie('egtech', result);
