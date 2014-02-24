@@ -682,7 +682,11 @@ $(document).ready(function () {
                 '</tr>' +
                 '</thead>' +
                 '<tbody id="no' + numProjects + 'A">' +
-                '<tr><td><button id="btn_no' + numProjects + 'A" class="btn btn-lg btn-primary btnAddSub" data-toggle="modal" data-target="#myModal">Add New Sub</button></td></tr>' +
+                '<tr>' +
+                '<td>' +
+                '<button id="btn_no' + numProjects + 'A" class="btn btn-lg btn-primary btnAddSub" data-toggle="modal" data-target="#myModal">Add New Sub</button>' +
+                '</td>' +
+                '</tr>' +
                 '</tbody>' +
                 '</table>' +
                 '</div>' +
@@ -737,12 +741,18 @@ $(document).ready(function () {
         }
 
         // insert new element
-        $("#" + idProject).append('<tr><td><div class="span1">' +
+        $("#" + idProject).append('<tr>' +
+                '<td>' +
+                '<div class="span1">' +
                 '<img id="testing" alt="somebody" src="' + 'http://www.gravatar.com/avatar/' + emailToMD5 + '" class="gravatar">' +
-                '</div><div class="span2">' +
+                '</div>' +
+                '<div class="span2">' +
                 '<h3>' + name1 + '</h3>' +
-                '</div><div class="title span9">' + role + '</div>' +
-                '</td> <td>' + date1 + '</td></tr>');
+                '</div>' +
+                '<div class="title span9">' + role + '</div>' +
+                '</td>' +
+                '<td>' + date1 + '</td>' +
+                '</tr>');
 
         //reset input
         $("#name1").val("");
@@ -764,7 +774,7 @@ $(document).ready(function () {
 
         // XML string to JSON
         var xmlText = temp.slice(temp.search("BEGINHERE") + 12);
-        xmlText = xmlText.replace(/<img(.+)">/g, '<img$1"></img>');
+        xmlText = xmlText.replace(/<img(.*?)>/g, '<img$1></img>');
 
         var start = "<JSON>";
         var end = "</JSON>";
@@ -772,34 +782,34 @@ $(document).ready(function () {
         var finalStringcompressed = LZString.compress(finalString);
 
         // uncomment below to get json obj, now it's still string.
-        //var jsonObj = x2js.xml_str2json(finalString);
-
+        var jsonObj = x2js.xml_str2json(finalString);
         //okay, now we have json obj, play with it.
 
         // use ajax to POST json to server. On server need to handle it, write it to file I think.
-//        $.ajax({
-//            type: "POST",
-//            url: "/webservices/somethinghere",
-//            data: JSON.stringify(jsonObj),
+        $.ajax({
+            type: "POST",
+            url: "php/write_json.php",
+            data: { "jsonData" : JSON.stringify(jsonObj) },
+//            data: {"jsonData":"testjson"},
 //            contentType: "application/json; charset=utf-8",
 //            dataType: "json",
-//            success: function (data) {
-//                alert(data);
-//            },
-//            failure: function (errMsg) {
-//                alert(errMsg);
-//            }
-//        });
+            success: function (data) {
+                alert(data);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
 
         // or use html5 local storage just to test?
-        if (typeof(Storage) !== "undefined") {
-            localStorage.setItem('egtech_data', finalStringcompressed);
-        }
-        else {
+//        if (typeof(Storage) !== "undefined") {
+//            localStorage.setItem('egtech_data', JSON.stringify(jsonObj));
+//        }
+//        else {
             // alert('Sorry! No Web Storage support..');
-        }
+//        }
 
-        var cct = localStorage.getItem('egtech_data');
+//        var cct = localStorage.getItem('egtech_data');
 //        console.log(cct);
     });
 });
@@ -808,31 +818,37 @@ $(document).ready(function () {
 function loadJSON() {
     //get json obj from server
 
-//    $.getJSON("/webservice/to_json_file")
-//            .done(function (json) {
-//                console.log("JSON Data: " + json.users[ 3 ].name);
-//
-//                var temp = x2js.json2xml_str(json);
-//                $('body').append(temp);
-//            })
-//            .fail(function (jqxhr, textStatus, error) {
-//                var err = textStatus + ", " + error;
-//                console.log("Request Failed: " + err);
-//                $('body').html("Error loading data!");
-//            });
+    $.getJSON("php/egtech_data.json")
+            .done(function (json) {
+                console.log("JSON Data: " + json.users[ 3 ].name);
+
+                var temp = x2js.json2xml_str($.parseJSON(json));
+                    if (temp != null || temp != "") {
+                        var data = cc.substring(6, cc.lastIndexOf("</JSON>"));
+                        $('body').append(data);
+                    }
+            })
+            .fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+                $('body').html("Error loading data!");
+            });
 
     //or we can get JSON from html5 local storage just to test things?
-    if (typeof(Storage) !== "undefined") {
-        var cct = localStorage.getItem('egtech_data');
-        var cc = LZString.decompress(cct);
-        if (cc != null || cc != "") {
-            var data = cc.substring(6, cc.lastIndexOf("</JSON>"));
-            $('body').append(data);
-        }
-    }
-    else {
-        // alert('Sorry! No Web Storage support..');
-    }
+//    if (typeof(Storage) !== "undefined") {
+//        var cct = localStorage.getItem('egtech_data');
+//        //var cc = LZString.decompress(cct);
+//        var x2js = new X2JS();
+//        var cc = x2js.json2xml_str($.parseJSON(cct));
+//
+//        if (cc != null || cc != "") {
+//            var data = cc.substring(6, cc.lastIndexOf("</JSON>"));
+//            $('body').append(data);
+//        }
+//    }
+//    else {
+//        // alert('Sorry! No Web Storage support..');
+//    }
 }
 
 // very very simple login function for the page.
@@ -866,7 +882,7 @@ $('window').ready(function () {
 
     // cannot test because no server side script
     // now  moved to html5 local storage, can be tested.
-    loadJSON();
+//    loadJSON();
 });
 </script>
 </head>
