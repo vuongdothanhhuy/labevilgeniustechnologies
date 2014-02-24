@@ -820,13 +820,15 @@ function loadJSON() {
 
     $.getJSON("php/egtech_data.json")
             .done(function (json) {
-                console.log("JSON Data: " + json.users[ 3 ].name);
+                console.log("JSON Data: " + $.parseJSON(JSON.stringify(json)));
 
-                var temp = x2js.json2xml_str($.parseJSON(json));
-                    if (temp != null || temp != "") {
-                        var data = cc.substring(6, cc.lastIndexOf("</JSON>"));
-                        $('body').append(data);
-                    }
+//                var temp = x2js.json2xml_str($.parseJSON(json));
+                var x2js = new X2JS();
+                var temp = x2js.json2xml_str(json);
+                if (temp != null || temp != "") {
+                    var data = temp.substring(6, temp.lastIndexOf("</JSON>"));
+                    $('body').append(data);
+                }
             })
             .fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
@@ -882,7 +884,7 @@ $('window').ready(function () {
 
     // cannot test because no server side script
     // now  moved to html5 local storage, can be tested.
-//    loadJSON();
+    loadJSON();
 });
 </script>
 </head>
